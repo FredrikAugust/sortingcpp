@@ -9,7 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
-#include <string>
+#include <sstream>
 #include <Magick++.h>
 
 using namespace std;
@@ -29,6 +29,30 @@ vector<int> pseudo_random_array(int size)
   return output;
 }
 
+// Use imagemagick to draw an image with values of @vec
+void draw_vector(vector<int> vec, string name = "output")
+{
+  // let's do some drawing :)
+  try
+  {
+    Image image(Geometry(vec.size() * 4, vec.size() * 2), Color("white"));
+
+    image.fillColor("black");
+
+    for (int i = 0; i < vec.size(); i++) {
+      image.draw(DrawableRectangle(4 * i, vec.size() * 2 - vec[i] * 2,
+                                   4 * i + 1, vec.size() * 4));
+    }
+
+    image.write("img/" + name + ".gif");
+  }
+  catch(exception &error_)
+  {
+    cout << "Caught exception: " << error_.what() << endl;
+  }
+}
+
+// Main function that does all the heavy lifting
 vector<int> bubble_sort(vector<int> arr, int size, int iteration=1)
 {
   int prev, curr;
@@ -45,12 +69,18 @@ vector<int> bubble_sort(vector<int> arr, int size, int iteration=1)
     }
   }
 
+  stringstream ss;
+  ss << iteration;
+  string iteration_s = ss.str();
+
   if (iteration != size)
   {
+    draw_vector(arr, string((4 - iteration_s.length()), '0') + iteration_s);
     return bubble_sort(arr, size, iteration + 1);
   }
   else
   {
+    draw_vector(arr, string((4 - iteration_s.length()), '0') + iteration_s);
     return arr;
   }
 }
@@ -79,27 +109,7 @@ int main(int argc, char *argv[])
   }
   printf("End of sorted nums.\n");
 
-  // let's do some drawing :)
-  try
-  {
-    InitializeMagick(*argv);
-
-    Image image(Geometry(nums_to_sort * 2, nums_to_sort), Color("white"));
-
-    image.strokeColor("grey");
-    image.fillColor("black");
-    image.strokeWidth(2);
-
-    for (int i = 0; i < sorted_nums.size(); i++) {
-      image.draw(DrawableRectangle(2 * i, sorted_nums[i], 2 * i + 1, 0));
-    }
-
-    image.display();
-  }
-  catch(exception &error_)
-  {
-    cout << "Caught exception: " << error_.what() << endl;
-  }
+  InitializeMagick(*argv);
 
   return 0;
 }
