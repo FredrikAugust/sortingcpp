@@ -9,7 +9,11 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <string>
+#include <Magick++.h>
+
 using namespace std;
+using namespace Magick;
 
 // Generate array with x pseudo-random numbers; this is what we will sort later
 vector<int> pseudo_random_array(int size)
@@ -74,6 +78,28 @@ int main(int argc, char *argv[])
     printf("%i ", sorted_nums[i]);
   }
   printf("End of sorted nums.\n");
+
+  // let's do some drawing :)
+  try
+  {
+    InitializeMagick(*argv);
+
+    Image image(Geometry(nums_to_sort * 2, nums_to_sort), Color("white"));
+
+    image.strokeColor("grey");
+    image.fillColor("black");
+    image.strokeWidth(2);
+
+    for (int i = 0; i < sorted_nums.size(); i++) {
+      image.draw(DrawableRectangle(2 * i, sorted_nums[i], 2 * i + 1, 0));
+    }
+
+    image.display();
+  }
+  catch(exception &error_)
+  {
+    cout << "Caught exception: " << error_.what() << endl;
+  }
 
   return 0;
 }

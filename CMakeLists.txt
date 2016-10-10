@@ -1,3 +1,6 @@
 cmake_minimum_required (VERSION 3.5)
 project (SortingAlgorithms)
+find_package(ImageMagick COMPONENTS Magick++)
 add_executable(BubbleSort bubble.cpp)
+include_directories(${ImageMagick_INCLUDE_DIRS})
+target_link_libraries(BubbleSort ${ImageMagick_LIBRARIES})
