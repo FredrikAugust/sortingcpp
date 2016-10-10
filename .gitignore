@@ -1,0 +1,7 @@
+bin/*
+!bin/.keep
+build/*
+!build/.keep
+tags
+.color_coded
+.ycm_extra_conf.*
