@@ -3,7 +3,8 @@ project (SortingAlgorithms)
 find_package(ImageMagick COMPONENTS Magick++)
 
 include_directories(src/)
-set(SOURCES src/bubble.cpp src/sorthelpers.h src/imagery.cpp)
+set(SOURCES src/bubble.cpp src/sorthelpers.h src/imagery.cpp
+  src/shuffled_array.cpp)
 
 add_executable(SortBubble ${SOURCES})
 include_directories(${ImageMagick_INCLUDE_DIRS})

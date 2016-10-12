@@ -25,6 +25,6 @@ void draw_vector(vector<int> vec, string name)
   }
   catch(exception &error_)
   {
-    cout << "Caught exception: " << error_.what() << endl;
+    std::cout << "Caught exception: " << error_.what() << std::endl;
   }
 }

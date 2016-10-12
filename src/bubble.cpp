@@ -14,22 +14,8 @@
 
 using namespace std;
 
-// Generate array with x pseudo-random numbers; this is what we will sort later
-vector<int> pseudo_random_array(int size)
-{
-  vector<int> output;
-
-  for (int i = 0; i < size; i++)
-  {
-    // from 1 -> x
-    output.push_back(rand() % size + 1);
-  }
-
-  return output;
-}
-
 // Main function that does all the heavy lifting
-vector<int> bubble_sort(vector<int> arr, int iteration=1)
+vector<int> bubble_sort(vector<int> arr, int iteration = 1)
 {
   int prev, curr;
   int size = arr.size();
@@ -68,7 +54,7 @@ int main(int argc, char *argv[])
   int nums_to_sort = argc > 1 ? stoi(argv[1]) : 50;
   printf("Nums to sort: %i\n", nums_to_sort);
 
-  vector<int> random_ints = pseudo_random_array(nums_to_sort);
+  vector<int> random_ints = shuffled_array(nums_to_sort);
 
   // Display random nums for debugging purposes
   for (int i = 0; i < nums_to_sort; i++)
@@ -77,14 +63,14 @@ int main(int argc, char *argv[])
   }
   printf("\nEnd of random nums.\n");
 
-  vector<int> sorted_nums = bubble_sort(random_ints, nums_to_sort);
+  vector<int> sorted_nums = bubble_sort(random_ints);
 
   // Display sorted numbers
   for (int i = 0; i < nums_to_sort; i++)
   {
     printf("%i ", sorted_nums[i]);
   }
-  printf("End of sorted nums.\n");
+  printf("\nEnd of sorted nums.\n");
 
   Magick::InitializeMagick(*argv);
 
