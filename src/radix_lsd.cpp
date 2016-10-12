@@ -1,53 +1,25 @@
 /**
- * @file bubble.cpp
+ * @file radix_lsd.cpp
  * @brief Trying to implement some simple sorting algorithms in C++
  * @author Fredrik August Madsen-Malmo
  * @version 0.1
- * @date 2016-10-08
+ * @date 2016-10-12
  */
 
 #include <iostream>
 #include <vector>
-#include <sstream>
 #include <Magick++.h>
 #include "sorthelpers.h"
 
 using namespace std;
 
-// Main function that does all the heavy lifting
-vector<int> bubble_sort(vector<int> arr, int iteration = 1)
+vector<int> radix_lsd_sort(vector<int> arr)
 {
-  int prev, curr;
-  int size = arr.size();
+  // get length of longest number
+  // do magic
+  // profit
 
-  for (int i = 1; i <= size - iteration; i++)
-  {
-    prev = arr[i - 1];
-    curr = arr[i];
-
-    if (prev > curr)
-    {
-      arr[i] = prev;
-      arr[i - 1] = curr;
-    }
-  }
-
-  stringstream ss;
-  ss << iteration;
-  string iteration_s = ss.str();
-
-  if (iteration != size)
-  {
-    draw_vector(arr, "bubble" + string((4 - iteration_s.length()), '0') +
-        iteration_s);
-    return bubble_sort(arr, iteration + 1);
-  }
-  else
-  {
-    draw_vector(arr, "bubble" + string((4 - iteration_s.length()), '0') +
-        iteration_s);
-    return arr;
-  }
+  return arr;
 }
 
 int main(int argc, char *argv[])
@@ -65,7 +37,7 @@ int main(int argc, char *argv[])
   }
   printf("\nEnd of random nums.\n");
 
-  vector<int> sorted_nums = bubble_sort(random_ints);
+  vector<int> sorted_nums = radix_lsd_sort(random_ints);
 
   // Display sorted numbers
   for (int i = 0; i < nums_to_sort; i++)
