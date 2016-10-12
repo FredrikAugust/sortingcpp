@@ -1,7 +1,7 @@
 tags
 .color_coded
 .ycm_extra_conf.*
-CmakeCache.txt
+CMakeCache.txt
 CMakeFiles
 cmake_install.cmake
 Makefile
