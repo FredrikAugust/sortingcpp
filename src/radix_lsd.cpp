@@ -13,11 +13,55 @@
 
 using namespace std;
 
+vector<int> bucket(vector<int> vec, int pos, int longest_num)
+{
+  vector<int> new_vec;
+  for (int i = 0; i < 10; i++) {
+    for (int vec_pos = 0; vec_pos < vec.size(); vec_pos++) {
+      stringstream ss;
+      ss << vec[vec_pos];
+      string num_s = ss.str();
+      num_s = string(longest_num - num_s.length(), '0') + num_s;
+      if ((int)num_s[pos-1] - '0' == i)
+      {
+        new_vec.push_back(vec[vec_pos]);
+      }
+    }
+  }
+
+  return new_vec;
+}
+
 vector<int> radix_lsd_sort(vector<int> arr)
 {
-  // get length of longest number
-  // do magic
-  // profit
+  int longest_num = 1;
+
+  for (int i = 0; i < arr.size(); i++)
+  {
+    int val = arr[i];
+    int len = 0;
+
+    while (val != 0)
+    {
+      val /= 10;
+      len += 1;
+    }
+
+    if (len > longest_num)
+    {
+      longest_num = len;
+    }
+  }
+
+  for (int i = longest_num; i > 0; i--) {
+    arr = bucket(arr, i, longest_num);
+
+    stringstream ss;
+    ss << longest_num - i;
+    string i_s = ss.str();
+
+    draw_vector(arr, "lsd" + string(4 - i_s.length(), '0') + i_s);
+  }
 
   return arr;
 }
